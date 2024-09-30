@@ -1,0 +1,6 @@
+*.exe
+*.o
+*.venv
+*.info
+myenv
+__pycache__
