@@ -2,5 +2,7 @@
 *.o
 *.venv
 *.info
+*.txt
 myenv
 __pycache__
+tempCodeRunnerFile.py
