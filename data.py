@@ -1,38 +1,36 @@
-
-class Request:
-    def __init__(self, client_ID, version, code, payload_size, payload):
-        self.client_ID = client_ID
-        self.version = version
-        self.code = code
-        self.payload_size = payload_size
-        self.payload = payload
-    
-    REGISTRY = 825
-    SEND_PUBLIC_KEY = 826
-        
+import uuid
 
 
-class Payload:
-    pass
 
 
-class UUID:
+class User:
     def __init__(self, id, name):
-        self.id = id
-        self.name = name
-    
+        self.__id = id
+        self.__name = name
 
-class UUIDCollection:
+    def get_name(self):
+        return self.__name
+
+
+class Users:
     def __init__(self):
-        self.uuid_list = []
+        self.users_list = []
+        self.id_list = []
 
-    def add(self, uuid_obj: UUID):
-        self.uuid_list.append(uuid_obj)
+    def register(self, name: str):
+        if any(usr.get_name() == name for usr in self.users_list):
+            return None
 
-    def exist(self, user_name) ->bool:
-        for user in self.uuid_list:
-            if user.name == user_name:
+        new_uuid = uuid.uuid4()
+        while new_uuid in self.id_list:
+            new_uuid = uuid.uuid4()
+
+        new_user = User(new_uuid, name)
+        self.users_list.append(new_user)
+        return new_uuid
+
+    def exist(self, name) -> bool:
+        for user in self.users_list:
+            if user.get_name() == name:
                 return True
         return False
-
-
